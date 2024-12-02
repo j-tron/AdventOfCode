@@ -4,7 +4,7 @@ public class Day1
 {
     private static readonly string[] separator = ["   "];
 
-    public static int Solution(IReadOnlyList<int> left, IReadOnlyList<int> right)
+    public static int SolutionPart1(IReadOnlyList<int> left, IReadOnlyList<int> right)
     {
         left = [.. left.OrderBy(x => x)];
         right = [.. right.OrderBy(x => x)];
@@ -16,6 +16,31 @@ public class Day1
         }
 
         return distance;
+    }
+
+    public static int SolutionPart2(IReadOnlyList<int> left, IReadOnlyList<int> right)
+    {
+        left = [.. left.OrderBy(x => x)];
+        right = [.. right.OrderBy(x => x)];
+
+        var similarity = 0;
+
+        for (int i = 0; i < left.Count; i++)
+        {
+            var duplication = 0;
+            var lefty = left[i];
+            for (int j = 0; j < right.Count; j++)
+            {
+                if(lefty == right[j])
+                {
+                    duplication++;
+                }
+            }
+
+            similarity += lefty * duplication;
+        }
+
+        return similarity;
     }
 
     public static (IReadOnlyList<int> left, IReadOnlyList<int> right) ReadInput(string filePath)
